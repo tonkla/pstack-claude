@@ -49,11 +49,11 @@ function check(label, cond, extra) {
   check("mandate namespace stripped", !mandate.includes("pstack:"))
 }
 
-// readSheet: real sheet, and a synthetic one
+// readSheet: the real sheet is informational only (it depends on the machine),
+// and a synthetic one with fixed expectations
 {
   const sheet = readSheet(defaultPaths.sheet, defaultPaths.roles)
-  check("real sheet present", sheet.present === true, sheet)
-  console.log("     sheet rows:", sheet.rows.length, "hookOff:", sheet.hookOff)
+  console.log("     info: real sheet present:", sheet.present, "rows:", sheet.rows.length, "hookOff:", sheet.hookOff)
 }
 {
   const fs = await import("node:fs")

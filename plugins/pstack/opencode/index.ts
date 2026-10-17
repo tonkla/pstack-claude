@@ -55,6 +55,11 @@ export const opencodeMapping = [
   "- Claude tool names map to OpenCode tools: `Skill` -> `skill`, `Agent` -> `subagent`, `AskUserQuestion` -> the session's question tool, `TaskCreate`/`TaskUpdate`/`TodoWrite` -> the session's todo tools, `Bash` -> `bash`, `Read`/`Edit`/`Write` -> `read`/`edit`/`write`.",
   "- Agent names map to OpenCode agent ids: `subagent_type: \"pstack:poteto-agent\"` and `general-purpose` -> `general`; a read-only reviewer or explorer -> `explore`.",
   "- Reasoning effort: OpenCode subagents do not take a per-call effort. Ignore an `@<level>` suffix and run at the session's effort.",
+  "- `run_in_background: true` has no separate flag: `subagent` calls already run concurrently with your turn. Issue the dispatch and continue.",
+  "- There is no `comment-sicko` subagent type. The **no-comments** skill spawns it on Claude Code; on OpenCode dispatch a `subagent` whose instructions tell it to read `poteto-mode/references/agents/comment-sicko.md` in full first.",
+  "- There are no `thermo-nuclear-review-subagent` or `thermo-nuclear-code-quality-review-subagent` types. The **thermos** skill spawns both on Claude Code; on OpenCode dispatch two `subagent` calls whose instructions tell each to read the `thermo-nuclear-review` or `thermo-nuclear-code-quality-review` skill in full first.",
+  "- `loop` (recurring/self-paced re-invocation, used by `babysit`): OpenCode has no `loop` skill. Re-run the step yourself on a cadence, preferring a blocking wait (`gh pr checks --watch` blocks until checks finish) over sleep intervals.",
+  "- MCP-backed investigators (`why`): list the available MCPs from the tools the session exposes to you, not from `.mcp.json` or `claude mcp list`.",
   "- Role model values in the pstack sheet above are OpenCode `provider/model` ids. Pass one as the `subagent` model when the runtime accepts it; otherwise inherit the parent.",
 ].join("\n")
 
