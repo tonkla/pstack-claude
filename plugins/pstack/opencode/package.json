@@ -1,0 +1,10 @@
+{
+  "name": "opencode-pstack",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "OpenCode V2 adapter for pstack. Registers the shared skills tree live, injects the poteto-mode routing mandate and the per-role model sheet, and adds /pstack/<skill> commands, without copying or editing the upstream-synced skills.",
+  "exports": {
+    ".": "./index.ts"
+  }
+}
