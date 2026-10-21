@@ -5,8 +5,9 @@ set -eu
 # Usage: sh scripts/sync-upstream.sh
 #
 # Fetches upstream, replays local main on top of upstream/main with no
-# merge commit, then pushes the result to origin. If the rebase stops on
-# a conflict, resolve the files, run `git rebase --continue`, and run
+# merge commit, then pushes the result to origin. Commits upstream already
+# absorbed are dropped automatically (--empty=drop). If the rebase stops
+# on a conflict, resolve the files, run `git rebase --continue`, and run
 # this script again to finish the push.
 UPSTREAM_URL="git@github.com:michael-denyer/pstack-claude.git"
 BRANCH="main"
@@ -27,5 +28,6 @@ if ! git remote get-url upstream >/dev/null 2>&1; then
 fi
 
 git fetch upstream
-git rebase "upstream/$BRANCH"
+git rebase --empty=drop "upstream/$BRANCH"
+bun tools/generate.mjs --check
 git push --force-with-lease origin "$BRANCH"
